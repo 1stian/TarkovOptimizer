@@ -91,7 +91,12 @@ namespace Tarkov_Optimizer
         {
             try
             {
-                return Environment.ProcessorCount;
+                int coreCount = 0;
+                foreach (var item in new System.Management.ManagementObjectSearcher("Select * from Win32_Processor").Get())
+                {
+                    coreCount += int.Parse(item["NumberOfCores"].ToString());
+                }
+                return coreCount;
             }
             catch
             {
@@ -176,13 +181,13 @@ namespace Tarkov_Optimizer
 
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
-            Process[] processes = Process.GetProcessesByName("notepad");
+            Process[] processes = Process.GetProcessesByName("EscapeFromTarkov");
             foreach (Process proc in processes)
             {
                 timerCheck.Interval = 30000;
                 proc.PriorityClass = priority;
 
-                if (!optimized)
+                if (!optimized) 
                 {
                     textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - Escape from Tarkov detected, optimzing the process.");
                     optimized = true;
