@@ -72,9 +72,11 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelToolVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 420);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 368);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.statusStrip1.Size = new System.Drawing.Size(238, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -148,15 +150,16 @@
             "Above normal",
             "High",
             "Realtime"});
-            this.comboPriority.Location = new System.Drawing.Point(12, 224);
+            this.comboPriority.Location = new System.Drawing.Point(127, 175);
             this.comboPriority.Name = "comboPriority";
-            this.comboPriority.Size = new System.Drawing.Size(214, 21);
+            this.comboPriority.Size = new System.Drawing.Size(99, 21);
             this.comboPriority.TabIndex = 2;
+            this.comboPriority.SelectedIndexChanged += new System.EventHandler(this.comboPriority_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 208);
+            this.label1.Location = new System.Drawing.Point(59, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 3;
@@ -175,11 +178,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 145);
+            this.label2.Location = new System.Drawing.Point(36, 142);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 13);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Numbers of physical cores";
+            this.label2.Text = "Number of cores";
             // 
             // comboCores
             // 
@@ -191,9 +194,9 @@
             "8",
             "12",
             "16"});
-            this.comboCores.Location = new System.Drawing.Point(12, 161);
+            this.comboCores.Location = new System.Drawing.Point(127, 139);
             this.comboCores.Name = "comboCores";
-            this.comboCores.Size = new System.Drawing.Size(214, 21);
+            this.comboCores.Size = new System.Drawing.Size(99, 21);
             this.comboCores.TabIndex = 6;
             this.comboCores.SelectedIndexChanged += new System.EventHandler(this.ComboCores_SelectedIndexChanged);
             // 
@@ -201,7 +204,7 @@
             // 
             this.checkAdvanced.AutoSize = true;
             this.checkAdvanced.Enabled = false;
-            this.checkAdvanced.Location = new System.Drawing.Point(12, 188);
+            this.checkAdvanced.Location = new System.Drawing.Point(12, 158);
             this.checkAdvanced.Name = "checkAdvanced";
             this.checkAdvanced.Size = new System.Drawing.Size(112, 17);
             this.checkAdvanced.TabIndex = 7;
@@ -210,7 +213,7 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(12, 388);
+            this.buttonStart.Location = new System.Drawing.Point(12, 339);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(214, 23);
             this.buttonStart.TabIndex = 8;
@@ -221,7 +224,7 @@
             // buttonStop
             // 
             this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(12, 359);
+            this.buttonStop.Location = new System.Drawing.Point(12, 310);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(214, 23);
             this.buttonStop.TabIndex = 9;
@@ -266,7 +269,7 @@
             // chkStartUp
             // 
             this.chkStartUp.AutoSize = true;
-            this.chkStartUp.Location = new System.Drawing.Point(12, 307);
+            this.chkStartUp.Location = new System.Drawing.Point(12, 258);
             this.chkStartUp.Name = "chkStartUp";
             this.chkStartUp.Size = new System.Drawing.Size(96, 17);
             this.chkStartUp.TabIndex = 13;
@@ -277,7 +280,7 @@
             // checkStartState
             // 
             this.checkStartState.AutoSize = true;
-            this.checkStartState.Location = new System.Drawing.Point(12, 284);
+            this.checkStartState.Location = new System.Drawing.Point(12, 235);
             this.checkStartState.Name = "checkStartState";
             this.checkStartState.Size = new System.Drawing.Size(96, 17);
             this.checkStartState.TabIndex = 14;
@@ -288,7 +291,7 @@
             // buttonAuto
             // 
             this.buttonAuto.Enabled = false;
-            this.buttonAuto.Location = new System.Drawing.Point(12, 330);
+            this.buttonAuto.Location = new System.Drawing.Point(12, 281);
             this.buttonAuto.Name = "buttonAuto";
             this.buttonAuto.Size = new System.Drawing.Size(214, 23);
             this.buttonAuto.TabIndex = 15;
@@ -366,7 +369,7 @@
             this.checkAffinity.Checked = true;
             this.checkAffinity.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAffinity.Enabled = false;
-            this.checkAffinity.Location = new System.Drawing.Point(12, 251);
+            this.checkAffinity.Location = new System.Drawing.Point(12, 202);
             this.checkAffinity.Name = "checkAffinity";
             this.checkAffinity.Size = new System.Drawing.Size(137, 17);
             this.checkAffinity.TabIndex = 18;
@@ -377,7 +380,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 442);
+            this.ClientSize = new System.Drawing.Size(238, 390);
             this.Controls.Add(this.checkAffinity);
             this.Controls.Add(this.linkUpdate);
             this.Controls.Add(this.textLog);

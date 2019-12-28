@@ -1,16 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Tarkov_Optimizer
@@ -141,9 +134,6 @@ namespace Tarkov_Optimizer
         public static string GetVersion()
         {
             string ourVersion = string.Empty;
-            //if running the deployed application, you can get the version
-            //  from the ApplicationDeployment information. If you try
-            //  to access this when you are running in Visual Studio, it will not work.
             if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
                 ourVersion = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
             else
@@ -469,6 +459,11 @@ namespace Tarkov_Optimizer
         private void checkForUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             InstallUpdateSyncWithInfo();
+        }
+
+        private void comboPriority_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
