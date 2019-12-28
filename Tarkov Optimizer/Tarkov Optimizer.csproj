@@ -31,7 +31,7 @@
     <PublisherName>Naits</PublisherName>
     <SuiteName>Tarkov Optimizer</SuiteName>
     <MinimumRequiredVersion>1.0.0.19</MinimumRequiredVersion>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -150,6 +150,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TarkovGreen.ico" />
+    <Content Include="TarkovRed.ico" />
+    <None Include="Resources\RedIcon.ico" />
     <Content Include="Tarkov.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

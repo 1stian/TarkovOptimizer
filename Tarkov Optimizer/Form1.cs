@@ -26,6 +26,7 @@ namespace Tarkov_Optimizer
         Boolean updateAvailable = false;
         Boolean updateClose = false;
         Boolean changeAffinity = true;
+        Boolean advanced = false;
         String updateDownloadLink = "";
 
         long affinity;
@@ -155,24 +156,54 @@ namespace Tarkov_Optimizer
                 {
                     comboPriority.SelectedIndex = 2;
                     priority = ProcessPriorityClass.Normal;
+                    affinity = 0x0003;
+                    label4.Text = affinity.ToString();
                 }
                 if (value == 4 || value == 5 || value == 6 || value == 7 || value == 8)
                 {
                     comboPriority.SelectedIndex = 3;
                     priority = ProcessPriorityClass.AboveNormal;
-                    affinity &= 0x0009;
+                    affinity = 0x000F;
+                    label4.Text = affinity.ToString();
                 }
                 if (value > 9)
                 {
                     comboPriority.SelectedIndex = 4;
                     priority = ProcessPriorityClass.High;
                     affinity &= 0x007F;
+                    label4.Text = affinity.ToString();
+                }
+            }
+            else
+            {
+                int value = int.Parse(comboCores.Text);
+                if (value == 1 || value == 2 || value == 3)
+                {
+                    comboPriority.SelectedIndex = 2;
+                    priority = ProcessPriorityClass.Normal;
+                    affinity = 0x0003;
+                    label4.Text = affinity.ToString();
+                }
+                if (value == 4 || value == 5 || value == 6 || value == 7 || value == 8)
+                {
+                    comboPriority.SelectedIndex = 3;
+                    priority = ProcessPriorityClass.AboveNormal;
+                    affinity = 0x000F;
+                    label4.Text = affinity.ToString();
+                }
+                if (value > 9)
+                {
+                    comboPriority.SelectedIndex = 4;
+                    priority = ProcessPriorityClass.High;
+                    affinity &= 0x007F;
+                    label4.Text = affinity.ToString();
                 }
             }
         }
 
         private void TimerCheck_Tick(object sender, EventArgs e)
         {
+            //Process[] processes = Process.GetProcessesByName("notepad");
             Process[] processes = Process.GetProcessesByName("EscapeFromTarkov");
             foreach (Process proc in processes)
             {
@@ -181,9 +212,12 @@ namespace Tarkov_Optimizer
                 //Changing priority
                 proc.PriorityClass = priority;
                 //Changing affinity
-                //long affinityMask = (long)proc.ProcessorAffinity;
-                //affinityMask = affinity;
-                //proc.ProcessorAffinity = (IntPtr)affinityMask;
+                if (checkAffinity.Checked)
+                {
+                    long affinityMask = (long)proc.ProcessorAffinity;
+                    affinityMask &= affinity;
+                    proc.ProcessorAffinity = (IntPtr)affinityMask;
+                }
 
                 //Visual
                 if (!optimized) 
@@ -192,6 +226,9 @@ namespace Tarkov_Optimizer
                     optimized = true;
                     labelOptimized.Text = "true";
                     labelOptimized.ForeColor = Color.Green;
+                    this.Icon = Properties.Resources.TarkovGreen;
+                    notifyIcon1.Icon = Properties.Resources.TarkovGreen;
+                    notifyIcon1.Text = "Tarkov optimized";
                 }
             }
 
@@ -202,8 +239,34 @@ namespace Tarkov_Optimizer
                 optimized = false;
                 labelOptimized.Text = "false";
                 labelOptimized.ForeColor = Color.DarkRed;
+                this.Icon = Properties.Resources.TarkovRed;
+                notifyIcon1.Icon = Properties.Resources.TarkovRed;
+                notifyIcon1.Text = "Tarkov not optimized";
                 textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - waiting for game to launch... ");
             }
+        }
+
+        private void Start()
+        {
+            running = true;
+            timerCheck.Start();
+            buttonStart.Enabled = false;
+            buttonStop.Enabled = true;
+            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - started!");
+            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - waiting for game to launch... ");
+        }
+
+        private void Stop()
+        {
+            running = false;
+            timerCheck.Stop();
+            buttonStart.Enabled = true;
+            buttonStop.Enabled = false;
+            labelOptimized.Text = "false";
+            labelOptimized.ForeColor = Color.DarkRed;
+            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - stopped!");
+            this.Icon = Properties.Resources.TarkovRed;
+            notifyIcon1.Icon = Properties.Resources.TarkovRed;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -258,6 +321,7 @@ namespace Tarkov_Optimizer
             Properties.Settings.Default.autoRun = autoRun;
             Properties.Settings.Default.cores = cores;
             Properties.Settings.Default.affinity = changeAffinity;
+            Properties.Settings.Default.advanced = advanced;
             Properties.Settings.Default.Save();
         }
 
@@ -278,7 +342,12 @@ namespace Tarkov_Optimizer
             cores = Properties.Settings.Default.cores;
 
             //affinity
+            checkAffinity.Checked = Properties.Settings.Default.affinity;
             changeAffinity = Properties.Settings.Default.affinity;
+
+            //Advanced
+            checkAdvanced.Checked = Properties.Settings.Default.advanced;
+            advanced = Properties.Settings.Default.advanced;
 
             //Running
             bool isRun = Properties.Settings.Default.running;
@@ -331,21 +400,12 @@ namespace Tarkov_Optimizer
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            running = true;
-            timerCheck.Start();
-            buttonStart.Enabled = false;
-            buttonStop.Enabled = true;
-            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - started!");
-            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - waiting for game to launch... ");
+            Start();
         }
 
         private void ButtonStop_Click(object sender, EventArgs e)
         {
-            running = false;
-            timerCheck.Stop();
-            buttonStart.Enabled = true;
-            buttonStop.Enabled = false;
-            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - stopped!");
+            Stop();
         }
 
         private void TextLog_TextChanged(object sender, EventArgs e)
@@ -464,6 +524,32 @@ namespace Tarkov_Optimizer
         private void comboPriority_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkAdvanced_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkAdvanced.Checked)
+            {
+                advanced = true;
+                checkAffinity.Enabled = true;
+            }
+            else
+            {
+                advanced = false;
+                checkAffinity.Enabled = false;
+            }
+        }
+
+        private void checkAffinity_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkAffinity.Checked)
+            {
+                changeAffinity = true;
+            }
+            else
+            {
+                changeAffinity = false;
+            }
         }
     }
 }

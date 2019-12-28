@@ -63,6 +63,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkAffinity = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.notifMenu.SuspendLayout();
@@ -203,13 +204,13 @@
             // checkAdvanced
             // 
             this.checkAdvanced.AutoSize = true;
-            this.checkAdvanced.Enabled = false;
             this.checkAdvanced.Location = new System.Drawing.Point(12, 158);
             this.checkAdvanced.Name = "checkAdvanced";
             this.checkAdvanced.Size = new System.Drawing.Size(112, 17);
             this.checkAdvanced.TabIndex = 7;
             this.checkAdvanced.Text = "Advanced options";
             this.checkAdvanced.UseVisualStyleBackColor = true;
+            this.checkAdvanced.CheckedChanged += new System.EventHandler(this.checkAdvanced_CheckedChanged);
             // 
             // buttonStart
             // 
@@ -262,7 +263,7 @@
             this.notifyIcon1.BalloonTipText = "Tarkov Optimizer";
             this.notifyIcon1.BalloonTipTitle = "Tarkov Optimizer";
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Tarkov Optimizer";
+            this.notifyIcon1.Text = "Tarkov not optimized";
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon1_MouseClick);
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -375,12 +376,24 @@
             this.checkAffinity.TabIndex = 18;
             this.checkAffinity.Text = "Change affinity to cores";
             this.checkAffinity.UseVisualStyleBackColor = true;
+            this.checkAffinity.CheckedChanged += new System.EventHandler(this.checkAffinity_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(191, 203);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "label4";
+            this.label4.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(238, 390);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.checkAffinity);
             this.Controls.Add(this.linkUpdate);
             this.Controls.Add(this.textLog);
@@ -455,6 +468,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkAffinity;
+        private System.Windows.Forms.Label label4;
     }
 }
 
