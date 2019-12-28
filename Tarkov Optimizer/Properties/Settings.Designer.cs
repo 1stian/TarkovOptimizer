@@ -82,5 +82,17 @@ namespace Tarkov_Optimizer.Properties {
                 this["cores"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool affinity {
+            get {
+                return ((bool)(this["affinity"]));
+            }
+            set {
+                this["affinity"] = value;
+            }
+        }
     }
 }

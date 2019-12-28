@@ -38,6 +38,7 @@
             this.issuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonToolExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboPriority = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.checkStartState = new System.Windows.Forms.CheckBox();
             this.buttonAuto = new System.Windows.Forms.Button();
             this.textLog = new System.Windows.Forms.RichTextBox();
-            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkUpdate = new System.Windows.Forms.Label();
             this.timerUpdater = new System.Windows.Forms.Timer(this.components);
             this.notifMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -62,6 +62,7 @@
             this.checkForUpdatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkAffinity = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.notifMenu.SuspendLayout();
@@ -71,7 +72,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.labelToolVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 389);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 420);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(238, 22);
             this.statusStrip1.TabIndex = 0;
@@ -128,6 +129,13 @@
             this.buttonToolExit.Size = new System.Drawing.Size(110, 22);
             this.buttonToolExit.Text = "Exit";
             this.buttonToolExit.Click += new System.EventHandler(this.ButtonToolExit_Click);
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // comboPriority
             // 
@@ -202,7 +210,7 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(12, 355);
+            this.buttonStart.Location = new System.Drawing.Point(12, 388);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(214, 23);
             this.buttonStart.TabIndex = 8;
@@ -213,7 +221,7 @@
             // buttonStop
             // 
             this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(12, 326);
+            this.buttonStop.Location = new System.Drawing.Point(12, 359);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(214, 23);
             this.buttonStop.TabIndex = 9;
@@ -258,7 +266,7 @@
             // chkStartUp
             // 
             this.chkStartUp.AutoSize = true;
-            this.chkStartUp.Location = new System.Drawing.Point(12, 274);
+            this.chkStartUp.Location = new System.Drawing.Point(12, 307);
             this.chkStartUp.Name = "chkStartUp";
             this.chkStartUp.Size = new System.Drawing.Size(96, 17);
             this.chkStartUp.TabIndex = 13;
@@ -269,7 +277,7 @@
             // checkStartState
             // 
             this.checkStartState.AutoSize = true;
-            this.checkStartState.Location = new System.Drawing.Point(12, 251);
+            this.checkStartState.Location = new System.Drawing.Point(12, 284);
             this.checkStartState.Name = "checkStartState";
             this.checkStartState.Size = new System.Drawing.Size(96, 17);
             this.checkStartState.TabIndex = 14;
@@ -280,7 +288,7 @@
             // buttonAuto
             // 
             this.buttonAuto.Enabled = false;
-            this.buttonAuto.Location = new System.Drawing.Point(12, 297);
+            this.buttonAuto.Location = new System.Drawing.Point(12, 330);
             this.buttonAuto.Name = "buttonAuto";
             this.buttonAuto.Size = new System.Drawing.Size(214, 23);
             this.buttonAuto.TabIndex = 15;
@@ -299,13 +307,6 @@
             this.textLog.Text = "";
             this.textLog.TextChanged += new System.EventHandler(this.TextLog_TextChanged);
             this.textLog.VisibleChanged += new System.EventHandler(this.TextLog_VisibleChanged);
-            // 
-            // checkForUpdatesToolStripMenuItem
-            // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // linkUpdate
             // 
@@ -336,34 +337,48 @@
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.showToolStripMenuItem.Text = "Show";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem1
             // 
             this.checkForUpdatesToolStripMenuItem1.Name = "checkForUpdatesToolStripMenuItem1";
-            this.checkForUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.checkForUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(170, 22);
             this.checkForUpdatesToolStripMenuItem1.Text = "Check for updates";
             this.checkForUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem1_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(167, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // checkAffinity
+            // 
+            this.checkAffinity.AutoSize = true;
+            this.checkAffinity.Checked = true;
+            this.checkAffinity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkAffinity.Enabled = false;
+            this.checkAffinity.Location = new System.Drawing.Point(12, 251);
+            this.checkAffinity.Name = "checkAffinity";
+            this.checkAffinity.Size = new System.Drawing.Size(137, 17);
+            this.checkAffinity.TabIndex = 18;
+            this.checkAffinity.Text = "Change affinity to cores";
+            this.checkAffinity.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 411);
+            this.ClientSize = new System.Drawing.Size(238, 442);
+            this.Controls.Add(this.checkAffinity);
             this.Controls.Add(this.linkUpdate);
             this.Controls.Add(this.textLog);
             this.Controls.Add(this.buttonAuto);
@@ -436,6 +451,7 @@
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkAffinity;
     }
 }
 

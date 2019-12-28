@@ -17,9 +17,6 @@ namespace Tarkov_Optimizer
 {
     public partial class Form1 : Form
     {
-        //Test change for source control
-
-
         //Defaults
         public static String ABSOLUT_VERSION = GetVersion();
         public static String Author = "Naits";
@@ -35,7 +32,10 @@ namespace Tarkov_Optimizer
         Boolean autoRun = false;
         Boolean updateAvailable = false;
         Boolean updateClose = false;
+        Boolean changeAffinity = true;
         String updateDownloadLink = "";
+
+        long affinity;
         int cores = 0;
 
         public Form1()
@@ -170,11 +170,13 @@ namespace Tarkov_Optimizer
                 {
                     comboPriority.SelectedIndex = 3;
                     priority = ProcessPriorityClass.AboveNormal;
+                    affinity &= 0x0009;
                 }
                 if (value > 9)
                 {
                     comboPriority.SelectedIndex = 4;
                     priority = ProcessPriorityClass.High;
+                    affinity &= 0x007F;
                 }
             }
         }
@@ -184,9 +186,16 @@ namespace Tarkov_Optimizer
             Process[] processes = Process.GetProcessesByName("EscapeFromTarkov");
             foreach (Process proc in processes)
             {
+                //Changing timer interval
                 timerCheck.Interval = 30000;
+                //Changing priority
                 proc.PriorityClass = priority;
+                //Changing affinity
+                //long affinityMask = (long)proc.ProcessorAffinity;
+                //affinityMask = affinity;
+                //proc.ProcessorAffinity = (IntPtr)affinityMask;
 
+                //Visual
                 if (!optimized) 
                 {
                     textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - Escape from Tarkov detected, optimzing the process.");
@@ -258,6 +267,7 @@ namespace Tarkov_Optimizer
             Properties.Settings.Default.running = running;
             Properties.Settings.Default.autoRun = autoRun;
             Properties.Settings.Default.cores = cores;
+            Properties.Settings.Default.affinity = changeAffinity;
             Properties.Settings.Default.Save();
         }
 
@@ -276,6 +286,9 @@ namespace Tarkov_Optimizer
 
             //cores
             cores = Properties.Settings.Default.cores;
+
+            //affinity
+            changeAffinity = Properties.Settings.Default.affinity;
 
             //Running
             bool isRun = Properties.Settings.Default.running;
