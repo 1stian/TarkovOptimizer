@@ -13,8 +13,8 @@ namespace Tarkov_Optimizer
     public partial class Form1 : Form
     {
         //Directories
-        string workdDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-        string logDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\logs";
+        string workdDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TarkovOptimizer";
+        string logDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\TarkovOptimizer\logs";
 
         //Logging
         StringBuilder log = new StringBuilder();
@@ -78,6 +78,11 @@ namespace Tarkov_Optimizer
                 textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - waiting for game to launch... ");
 
             //Creating log dir
+            if (!File.Exists(workdDir))
+            {
+                Directory.CreateDirectory(workdDir);
+            }
+
             if (!File.Exists(logDir))
             {
                 Directory.CreateDirectory(logDir);
@@ -143,7 +148,7 @@ namespace Tarkov_Optimizer
 
                 if (newVer > oldVer)
                 {
-                    textLog.AppendText("Update available.");
+                    textLog.AppendText(Environment.NewLine + "Update available. New version: " + file);
                     updateAvailable = true;
                     linkUpdate.Visible = true;
 
@@ -520,6 +525,7 @@ namespace Tarkov_Optimizer
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            UpdateChecker();
             InstallUpdateSyncWithInfo();
         }
 
@@ -547,6 +553,7 @@ namespace Tarkov_Optimizer
 
         private void checkForUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            UpdateChecker();
             InstallUpdateSyncWithInfo();
         }
 
