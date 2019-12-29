@@ -3,13 +3,22 @@ using System;
 using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Tarkov_Optimizer
 {
     public partial class Form1 : Form
     {
+        //Directories
+        string workdDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+        string logDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + @"\logs";
+
+        //Logging
+        StringBuilder log = new StringBuilder();
+
         //Defaults
         public static String ABSOLUT_VERSION = GetVersion();
         public static String Author = "Naits";
@@ -68,6 +77,17 @@ namespace Tarkov_Optimizer
             if (running)
                 textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - waiting for game to launch... ");
 
+            //Creating log dir
+            if (!File.Exists(logDir))
+            {
+                Directory.CreateDirectory(logDir);
+                log.AppendLine(DateTime.Now.ToString("hh:mm:ss") + " - Log file and dir created!");
+            }
+
+            //Log timer
+            timerLog.Interval = 20000;
+            timerLog.Start();
+
             notifyIcon1.ContextMenuStrip = this.notifMenu;
         }
 
@@ -105,30 +125,38 @@ namespace Tarkov_Optimizer
 
         private void UpdateChecker()
         {
-            textLog.AppendText(Environment.NewLine + "Checking for updates...");
-            WebClient client = new WebClient();
-            string file = client.DownloadString(@"http://realnaits.com/projects/tarkovoptimizer/version.txt");
-
-            String[] split = file.Split('-');
-
-            var oldVer = new Version(ABSOLUT_VERSION);
-            var newVer = new Version(file);
-
-            if (split.Length == 2)
+            textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - Checking for updates...");
+            try
             {
-                updateDownloadLink = split[1];
+                WebClient client = new WebClient();
+                string file = client.DownloadString(@"http://realnaits.com/projects/tarkovoptimizer/version.txt");
+
+                String[] split = file.Split('-');
+
+                var oldVer = new Version(ABSOLUT_VERSION);
+                var newVer = new Version(file);
+
+                if (split.Length == 2)
+                {
+                    updateDownloadLink = split[1];
+                }
+
+                if (newVer > oldVer)
+                {
+                    textLog.AppendText("Update available.");
+                    updateAvailable = true;
+                    linkUpdate.Visible = true;
+
+                }
+                else
+                {
+                    linkUpdate.Visible = false;
+                }
             }
-
-            if (newVer > oldVer)
+            catch(Exception ex)
             {
-                textLog.AppendText("Update available.");
-                updateAvailable = true;
-                linkUpdate.Visible = true;
-                
-            }
-            else
-            {
-                linkUpdate.Visible = false;
+                log.AppendLine(DateTime.Now.ToString("hh:mm:ss") + ex);
+                textLog.AppendText(Environment.NewLine + DateTime.Now.ToString("hh:mm:ss") + " - Couldn't reach update server... ");
             }
         }
 
@@ -481,6 +509,7 @@ namespace Tarkov_Optimizer
                         }
                         catch (DeploymentDownloadException dde)
                         {
+                            log.AppendLine(DateTime.Now.ToString("hh:mm:ss") + dde);
                             MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
                             return;
                         }
@@ -550,6 +579,12 @@ namespace Tarkov_Optimizer
             {
                 changeAffinity = false;
             }
+        }
+
+        private void timerLog_Tick(object sender, EventArgs e)
+        {
+            File.AppendAllText(logDir + @"\log.txt", log.ToString());
+            log.Clear();
         }
     }
 }

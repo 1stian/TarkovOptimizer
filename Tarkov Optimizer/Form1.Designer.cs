@@ -64,6 +64,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkAffinity = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.timerLog = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.notifMenu.SuspendLayout();
@@ -388,6 +389,11 @@
             this.label4.Text = "label4";
             this.label4.Visible = false;
             // 
+            // timerLog
+            // 
+            this.timerLog.Interval = 20000;
+            this.timerLog.Tick += new System.EventHandler(this.timerLog_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -469,6 +475,7 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkAffinity;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Timer timerLog;
     }
 }
 
